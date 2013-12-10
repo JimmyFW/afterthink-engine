@@ -114,15 +114,10 @@ controllers.controller('MyCtrl', ['$scope', 'angularFire',
         //lookedAt.push(key);
         if(dishKey == value.title) {
           if(value.state=="accepted") {
-            styleObj["border-color"] = "#00FF00";
-          }
-          if(value.state=="maybe") {
-            if(styleObj["border-color"] != "#00FF00") {
-              styleObj["border-color"] = "#0000FF";
-            }
+            styleObj["border-color"] = "#FFFFCC";
           }
           if(value.state=="proposed") {
-            if(styleObj["border-color"] != "#00FF00" && styleObj["border-color"] != "#0000FF") {
+            if(styleObj["border-color"] != "#FFFFCC") {
               styleObj["border-color"] = "#CCCCCC";
             }
           }
