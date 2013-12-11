@@ -9,17 +9,10 @@
 </div>
 
 <div id="wrapper">
-  <h1>You are: {{ myKey }}</h1>
-
-
-  <!--<input type="button" ng-click="assignKey()" ng-model="myKey" value="Join the table" /><br />-->
-
   <div id="menuMain">
       <div class="menuLeft">
         <div><h2 class="section-title">~ {{ currentSection }} ~</h2></div>
-<!--
-        <div ng-repeat="dish in (menu | toArray)">{{ dish }}</div>
-      -->
+
         <div class="section-nav">
           <ul>
             <li ng-repeat="section in sections" ng-click="changeSection(section)">{{ section }}</li>
@@ -68,7 +61,7 @@
 
   <div id="debug" ng-style="returnDebugStyle()">
     <h1>Debug Panel</h1>
-    <div>{{myKey}}</div>
+    <div>You are: {{myKey}}</div>
     <div ng-repeat="dish in (dishes | toArray) | filter: {state: search_state}">{{ dish.id }}</div>
 
   </div>

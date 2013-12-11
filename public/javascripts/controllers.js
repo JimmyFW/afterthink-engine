@@ -70,6 +70,14 @@ controllers.controller('MyCtrl', ['$scope', 'angularFire',
       $scope.myKey = user;
     }
 
+    $scope.$on('$locationChangeStart', function (event, next, current) {
+        var answer = confirm("Are you sure you want to leave this page? " + $scope.myKey);
+        if (answer) {
+            $location.url($location.url(next).hash());
+            $rootScope.$apply();
+        }
+    });
+
     $scope.filterNotYou = function(user) {
       if(!$scope.myKey) {
         return true;
