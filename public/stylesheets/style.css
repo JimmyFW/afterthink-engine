@@ -115,6 +115,15 @@ a {
   white-space: nowrap;
 }
 
+/* HIDING ELEMENTS IN INVENTORY SPACE */
+.yours draggable div.food-icon div.icon-like,
+.yours draggable div.food-icon ul {
+	display: none !important;
+}
+.yours draggable div.food-icon {
+	padding-top: 0px !important;
+}
+
 .user {
   background: #FDFDFD;
   border: 1px dotted #CCCCCC;
