@@ -21,6 +21,7 @@ controllers.controller('MyCtrl', ['$scope', 'angularFire',
     var debug = new Firebase('https://groupthought.firebaseio.com/debug');
     angularFire(debug, $scope, "debug");
 
+/*
     dishes.on('child_added', function (snapshot) {
       console.log(snapshot.name());
     });
@@ -28,10 +29,17 @@ controllers.controller('MyCtrl', ['$scope', 'angularFire',
     dishes.on('child_removed', function (snapshot) {
       console.log(snapshot.name());
     });
+*/
 
     $scope.currentSection = "starters";
     $scope.photoWidth = 100;
     $scope.photoHeight = 100;
+
+$scope.$on('$locationChangeStart', function (event) {
+  event.preventDefault();
+  console.log('sdfiojdsfdsf');
+            alert('dsifjosdf');
+        });
 
     $scope.addUser = function () {
       $scope.assignKey();
@@ -96,7 +104,6 @@ controllers.controller('MyCtrl', ['$scope', 'angularFire',
 
     $scope.returnFinalOrderStyle = function () {
       var styleObj = {};
-      console.log($scope.done);
       if($scope.done){
         styleObj["display"] = "block";
       }
@@ -222,20 +229,6 @@ controllers.controller('MyCtrl', ['$scope', 'angularFire',
       
     }
 
-    $scope.detailVisible = function () {
-      if(!$scope.dishDetail) {
-        return {
-          "display": "none"
-        };
-      }
-      else {
-        return {
-          "display": "inline-block"
-        };
-      }
-    }
-
-
     $scope.fadePeppers1 = function (spiciness) {
       if(spiciness > 0) {
         return {
@@ -280,7 +273,7 @@ controllers.controller('MyCtrl', ['$scope', 'angularFire',
       console.log("Assigning a key");
       var uuid = guid();
       $scope.myKey = uuid;
-      $scope.users.push($scope.myKey);
+      //$scope.users.push($scope.myKey);
 
       function s4() {
         return Math.floor((1 + Math.random()) * 0x10000)
@@ -406,7 +399,7 @@ controllers.controller('MyCtrl', ['$scope', 'angularFire',
 
         console.dir("liking dish: " + $scope.dishes[dishKey]);
 
-        var dishLikedList= $scope.dishes[dishKey]["wholiked"];
+        var dishLikedList = $scope.dishes[dishKey]["wholiked"];
         var myKey = $scope.myKey;
         console.log(dishLikedList);
         //Check to see if the clicker has liked the item before
@@ -473,25 +466,6 @@ controllers.controller('MyCtrl', ['$scope', 'angularFire',
       $scope.dishes[dishId].startX = -1;
       $scope.dishes[dishId].startY = -1;
     }
-
-    $scope.$on('$viewContentLoaded', function() {
-      console.log("Assigning a key " + $scope.myKey);
-      var uuid = guid();
-      $scope.myKey = uuid;
-      console.log($scope.users);
-      $scope.users.push($scope.myKey);
-
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-                   .toString(16)
-                   .substring(1);
-      };
-
-      function guid() {
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-               s4() + '-' + s4() + s4() + s4();
-      };
-    })
 
 }]);
 

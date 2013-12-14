@@ -9,7 +9,6 @@
 </div>
 
 <div id="wrapper">
-  <input type="button" ng-click="addUser()" value="Join Table" /><br />
   <div id="menuMain">
       <div class="menuLeft">
         <div><h2 class="section-title">~ {{ currentSection }} ~</h2></div>
@@ -38,7 +37,7 @@
 
       <!--<detailView class="menuRight"></detailView>-->
 
-      <div class="menuRight" ng-style="detailVisible()" detail-view>
+      <div class="menuRight" detail-view>
       </div>
 
   </div>
@@ -51,6 +50,8 @@
 
   <div id="debug" ng-style="returnDebugStyle()">
     <h1>Debug Panel</h1>
+    <input type="button" ng-click="addUser()" value="Join Table" /><br />
+    <a href="http://www.google.com">google</a>
     <div>You are: {{myKey}}</div>
     <h4>List of dishes:</h4>
     <div ng-repeat="dish in (dishes | toArray) | filter: {state: search_state}">{{ dish.id }}</div>
@@ -58,7 +59,9 @@
     <ul>
       <li ng-repeat="user in users"><span ng-click="switchUser(user)">{{ user }}</span>&nbsp;<span ng-click="deleteUser(user)">x</span></li>
     </ul>
-
+    <div ng-click="callWaiter()">
+      <img ng-src="/images/bell.png" width="50px" height="50px" />
+    </div>
   </div>
 
   <!--

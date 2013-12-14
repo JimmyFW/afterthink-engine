@@ -93,8 +93,9 @@
 }
 
 </style>
+<ng:switch on="!dishDetail">
+<table ng-switch-when="false">
 
-<table>
 	<tr>
 		<td>
 		<div id="name">{{ dishDetail.title }}</div>
@@ -117,13 +118,6 @@
 					<img ng-src="/images/pepper.png">
 				</span>
 			</div>
-			<!--
-			<div id="spiciness">
-				<span ng-repeat="dishDetail.spiciness" class="fade">
-					<img ng-src="/images/pepper.png">
-				</span>
-			</div>
-			-->
 			<div id="vegetarian" ng-style="vegetarian(dishDetail.title)">
 				Vegetarian
 			</div>
@@ -172,3 +166,4 @@
 		</td>
 	</tr>
 </table>
+</ng:switch>
