@@ -2,7 +2,6 @@ var controllers = angular.module('afterthink.controllers', []);
 
 controllers.controller('MyCtrl', ['$scope', 'angularFire',
   function($scope, angularFire) {
-    console.log("LOAD MyCtrl");
 
     var users = new Firebase('https://groupthought.firebaseio.com/users');
     angularFire(users, $scope, "users");
@@ -35,6 +34,7 @@ controllers.controller('MyCtrl', ['$scope', 'angularFire',
     $scope.photoHeight = 100;
 
     $scope.addUser = function () {
+      $scope.assignKey();
       var index = $scope.users.indexOf($scope.myKey);
       console.log("index of mykey: " + index);
       if(index == -1) {
@@ -69,14 +69,6 @@ controllers.controller('MyCtrl', ['$scope', 'angularFire',
     $scope.switchUser = function (user) {
       $scope.myKey = user;
     }
-
-    $scope.$on('$locationChangeStart', function (event, next, current) {
-        var answer = confirm("Are you sure you want to leave this page? " + $scope.myKey);
-        if (answer) {
-            $location.url($location.url(next).hash());
-            $rootScope.$apply();
-        }
-    });
 
     $scope.filterNotYou = function(user) {
       if(!$scope.myKey) {
@@ -285,6 +277,7 @@ controllers.controller('MyCtrl', ['$scope', 'angularFire',
 
 
     $scope.assignKey = function () {
+      console.log("Assigning a key");
       var uuid = guid();
       $scope.myKey = uuid;
       $scope.users.push($scope.myKey);
@@ -369,8 +362,6 @@ controllers.controller('MyCtrl', ['$scope', 'angularFire',
 
     $scope.deleteDish = function (dishId) {
 
-      //event.preventDefault();
-
       var author = $scope.dishes[dishId].author;
       if(author == $scope.myKey) {
 
@@ -437,15 +428,6 @@ controllers.controller('MyCtrl', ['$scope', 'angularFire',
       console.log('Bell has been rung');
       $('#wrapper').hide();
       $scope.done = true;
-
-      /*
-      var answer = confirm("Hello! I'm your waiter." + $scope.dishes);
-      if (answer == true){
-          return true;
-      }else{
-          return false;
-      }
-      */
     }
 
     $scope.increaseOrderCount = function(dishKey){
@@ -473,17 +455,6 @@ controllers.controller('MyCtrl', ['$scope', 'angularFire',
         }
       }
       $scope.users.splice(1, $scope.users.length+1);
-      /*
-      for(var i=0; i<$scope.users.length; i++) {
-        if($scope.users[i]!="On The House") {
-          $scope.users.splice(i, 1);
-        }
-      }
-      */
-      /*
-      $scope.watch(function() {
-        $scope.done = false;
-      });*/
       $scope.done = false;
       $('#wrapper').show();
 
@@ -503,8 +474,26 @@ controllers.controller('MyCtrl', ['$scope', 'angularFire',
       $scope.dishes[dishId].startY = -1;
     }
 
-  }
-]);
+    $scope.$on('$viewContentLoaded', function() {
+      console.log("Assigning a key " + $scope.myKey);
+      var uuid = guid();
+      $scope.myKey = uuid;
+      console.log($scope.users);
+      $scope.users.push($scope.myKey);
+
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+                   .toString(16)
+                   .substring(1);
+      };
+
+      function guid() {
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+               s4() + '-' + s4() + s4() + s4();
+      };
+    })
+
+}]);
 
 controllers.controller('HomeController', ['$scope', function ($scope) {
   $scope.model = {
